@@ -1,0 +1,31 @@
+services:
+
+  frontend:
+    image: 281644/healthcare-frontend:${IMAGE_TAG:-latest}
+    build:
+      context: ./frontend
+    container_name: healthcare-frontend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  backend:
+    image: 281644/healthcare-backend:${IMAGE_TAG:-latest}
+    build:
+      context: ./backend
+    container_name: healthcare-backend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  database:
+    image: 281644/healthcare-database:${IMAGE_TAG:-latest}
+    build:
+      context: ./database
+    container_name: healthcare-database
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: healthcare
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
