@@ -37,21 +37,22 @@ pipeline {
             }
         }
 
-        stage('Deploy to Application Server') {
-            steps {
-                script {
-                    sshagent(['app-server-ssh-key']) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER_IP} '
-                                cd /home/ubuntu/healthcare-app &&
-                                docker compose pull &&
-                                docker compose up -d --remove-orphans
-                            '
-                        """
-                    }
-                }
+       stage('Deploy to Application Server') {
+    steps {
+        script {
+            sshagent(['app-server-ssh-key']) {
+                sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@${APP_SERVER_IP} '
+                        cd /home/ubuntu/healthcare-app &&
+                        docker compose pull &&
+                        docker compose down --remove-orphans &&
+                        docker compose up -d
+                    '
+                """
             }
         }
+    }
+}
     }
 
     post {
