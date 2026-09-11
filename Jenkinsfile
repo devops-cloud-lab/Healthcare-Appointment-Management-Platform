@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/ritiiks99/Healthcare-Appointment-Management-Platform.git'
+                git branch: 'main', url: 'https://github.com/devops-cloud-lab/Healthcare-Appointment-Management-Platform.git'
             }
         }
 
